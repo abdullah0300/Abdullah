@@ -709,7 +709,7 @@
           <div class="row justify-content-between">
 
             <div class="col-md-6">
-              <form method="post" class="form-outline-style-v1" id="contactForm">
+              <form name="submit-to-google-sheet" method="post" class="form-outline-style-v1" id="contactForm">
                 <div class="form-group row mb-0">
 
                   <div class="col-lg-6 form-group gsap-reveal">
@@ -732,6 +732,17 @@
                   </div>
                 </div>
               </form>
+              <script>
+  const scriptURL = '<https://script.google.com/macros/s/AKfycbyTYklhMr9rJAieYfV-zBRX_9Vfysxs2BRqW2NSWqDQeDzULLz6lXGtWY0-E7XMaP9hgA/exec>'
+  const form = document.forms['submit-to-google-sheet']
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => console.log('Success!', response))
+      .catch(error => console.error('Error!', error.message))
+  })
+</script>
               <div id="form-message-warning" class="mt-4"></div>
               <div id="form-message-success">
                 Your message was sent, thank you!
